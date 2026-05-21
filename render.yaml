@@ -22,5 +22,22 @@ services:
         fromDatabase:
           name: quantguard-postgres
           property: connectionString
+      - key: QG_CORS_ORIGINS
+        value: '["https://quantguard-web.onrender.com"]'
       - key: QG_REPORT_STORAGE_DIR
         value: generated_reports
+
+  - type: web
+    name: quantguard-web
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_SERVER_BASE
+        value: https://quantguard-api.onrender.com
+      - key: VITE_API_BASE
+        value: https://quantguard-api.onrender.com/api/v1
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -2,7 +2,7 @@
 
 This project is ready for a standard MVP deployment:
 
-- Frontend: Vercel, Netlify, or the included Nginx Docker image.
+- Frontend: Render Static Site, Vercel, Netlify, or the included Nginx Docker image.
 - Backend: Render, Railway, Azure App Service, AWS, or the included FastAPI Docker image.
 - Database: managed PostgreSQL.
 - Reports: local container volume for MVP; move to S3, Azure Blob, or Cloudflare R2 later.
@@ -34,11 +34,13 @@ Use `render.yaml` as a blueprint. Render will create:
 
 - `quantguard-api`
 - `quantguard-postgres`
+- `quantguard-web`
 
-After the frontend is deployed, manually add this backend environment variable in Render:
+The Blueprint sets the frontend to use:
 
 ```text
-QG_CORS_ORIGINS=["https://your-frontend-domain.vercel.app"]
+VITE_SERVER_BASE=https://quantguard-api.onrender.com
+VITE_API_BASE=https://quantguard-api.onrender.com/api/v1
 ```
 
 Render should also have:
@@ -48,11 +50,28 @@ QG_ENVIRONMENT=production
 QG_ENFORCE_HTTPS=true
 QG_SECRET_KEY=<generated secret>
 QG_DATABASE_URL=<managed postgres connection string>
+QG_CORS_ORIGINS=["https://quantguard-web.onrender.com"]
 ```
 
 The Blueprint uses Render's `basic-256mb` PostgreSQL plan because legacy Postgres plans such as `starter` are no longer accepted for new databases.
 
 The backend Docker command runs `alembic upgrade head` before starting FastAPI.
+
+## Frontend on Render
+
+The Blueprint deploys `quantguard-web` as a Render Static Site.
+
+Expected frontend URL:
+
+```text
+https://quantguard-web.onrender.com
+```
+
+If Render assigns a different custom URL, update:
+
+- Backend `QG_CORS_ORIGINS`
+- Frontend `VITE_SERVER_BASE`
+- Frontend `VITE_API_BASE`
 
 ## Frontend on Vercel
 
