@@ -50,6 +50,8 @@ QG_SECRET_KEY=<generated secret>
 QG_DATABASE_URL=<managed postgres connection string>
 ```
 
+The Blueprint uses Render's `basic-256mb` PostgreSQL plan because legacy Postgres plans such as `starter` are no longer accepted for new databases.
+
 The backend Docker command runs `alembic upgrade head` before starting FastAPI.
 
 ## Frontend on Vercel
