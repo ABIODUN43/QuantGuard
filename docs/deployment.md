@@ -35,7 +35,7 @@ Use `render.yaml` as a blueprint. Render will create:
 - `quantguard-api`
 - `quantguard-postgres`
 
-After the frontend is deployed, set this backend environment variable:
+After the frontend is deployed, manually add this backend environment variable in Render:
 
 ```text
 QG_CORS_ORIGINS=["https://your-frontend-domain.vercel.app"]

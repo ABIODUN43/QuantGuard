@@ -22,7 +22,5 @@ services:
         fromDatabase:
           name: quantguard-postgres
           property: connectionString
-      - key: QG_CORS_ORIGINS
-        sync: false
       - key: QG_REPORT_STORAGE_DIR
         value: generated_reports
