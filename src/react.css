@@ -1,0 +1,293 @@
+.brand svg,
+.btn svg,
+.iconbox svg,
+.nav-item svg,
+.topbar svg {
+  flex: 0 0 auto;
+}
+
+.auth-muted,
+.auth-switch {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 28px;
+}
+
+.secure-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  border: 1px solid rgba(133, 151, 171, 0.4);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0 18px;
+}
+
+.field-inline input {
+  border: 0;
+  min-height: 52px;
+  padding: 0;
+  background: transparent;
+}
+
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap svg {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #24334a;
+}
+
+.bell-btn {
+  position: relative;
+}
+
+.center {
+  text-align: center;
+}
+
+.panel + .panel {
+  margin-top: 18px;
+}
+
+.icon-round svg {
+  margin: auto;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.impact-grid b {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.impact-grid span {
+  display: block;
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+}
+
+.heatmap div {
+  height: 42px;
+  border-radius: 4px;
+}
+
+.sidebar .brand-name {
+  font-size: 21px;
+}
+
+.side-card b {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.onboarding-page,
+.state-page {
+  min-height: 100vh;
+  padding: 38px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 20% 70%, rgba(7, 179, 111, 0.18), transparent 30%),
+    linear-gradient(125deg, #020811, #061625 52%, #020811);
+}
+
+.state-page {
+  align-content: center;
+  gap: 24px;
+}
+
+.onboarding-card {
+  width: min(1080px, 100%);
+  padding: 34px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.onboarding-card .brand-name {
+  color: var(--ink);
+}
+
+.onboarding-card .tagline {
+  color: var(--muted);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+  margin: 24px 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.field-inline input,
+.field-inline select {
+  color: inherit;
+  width: 100%;
+}
+
+.onboarding-card .field-inline,
+.panel .field-inline {
+  background: #fff;
+}
+
+.chart-box {
+  width: 100%;
+  height: 300px;
+}
+
+.donut-chart {
+  height: 210px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.donut-chart strong {
+  position: absolute;
+  font-size: 24px;
+}
+
+.hidden-file {
+  display: none;
+}
+
+.inline-error,
+.success-box {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-weight: 750;
+}
+
+.inline-error {
+  color: #9b1a1f;
+  background: #fff1f1;
+  border: 1px solid #ffd6d6;
+}
+
+.success-box {
+  color: #06784c;
+  background: #eaf8f2;
+  border: 1px solid #bfead8;
+}
+
+.empty-state {
+  padding: 26px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  text-align: center;
+  background: #fbfdff;
+}
+
+.empty-state p {
+  margin-bottom: 0;
+}
+
+.logout-btn {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top-logout {
+  min-width: 44px;
+  padding: 0 12px;
+}
+
+.btn-danger {
+  background: #ff3d43;
+  color: #fff;
+  border-color: #ff3d43;
+}
+
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+}
+
+.inline-actions .field {
+  min-width: 180px;
+  margin: 0;
+}
+
+.reset-panel {
+  align-items: flex-start;
+}
+
+.reset-panel .inline-actions {
+  margin-top: 10px;
+}
+
+.scenario-result .kpi-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mock-line {
+  height: 180px;
+  margin-top: 12px;
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, transparent 0 20%, rgba(6, 179, 111, 0.16) 20% 100%),
+    repeating-linear-gradient(to right, rgba(255,255,255,.06) 0 1px, transparent 1px 42px),
+    repeating-linear-gradient(to bottom, rgba(255,255,255,.06) 0 1px, transparent 1px 38px);
+}
+
+@media (max-width: 900px) {
+  .form-grid,
+  .scenario-result .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 18px;
+  }
+
+  .kpi {
+    min-height: auto;
+  }
+
+  .chart-box {
+    height: 240px;
+  }
+
+  table {
+    min-width: 720px;
+  }
+
+  .panel {
+    overflow-x: auto;
+  }
+}

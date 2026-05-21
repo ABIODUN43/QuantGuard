@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-quantguard}
+      POSTGRES_USER: ${POSTGRES_USER:-quantguard}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-quantguard} -d ${POSTGRES_DB:-quantguard}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      QG_ENVIRONMENT: production
+      QG_SECRET_KEY: ${QG_SECRET_KEY:?Set QG_SECRET_KEY}
+      QG_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-quantguard}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-quantguard}
+      QG_ENFORCE_HTTPS: ${QG_ENFORCE_HTTPS:-false}
+      QG_CORS_ORIGINS: ${QG_CORS_ORIGINS:-["http://localhost:8080"]}
+      QG_REPORT_STORAGE_DIR: /app/generated_reports
+    volumes:
+      - report_files:/app/generated_reports
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_SERVER_BASE: ${VITE_SERVER_BASE:-http://localhost:8000}
+        VITE_API_BASE: ${VITE_API_BASE:-http://localhost:8000/api/v1}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+
+volumes:
+  postgres_data:
+  report_files:

@@ -1,0 +1,28 @@
+databases:
+  - name: quantguard-postgres
+    databaseName: quantguard
+    user: quantguard
+    plan: starter
+
+services:
+  - type: web
+    name: quantguard-api
+    runtime: docker
+    rootDir: backend
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: QG_ENVIRONMENT
+        value: production
+      - key: QG_ENFORCE_HTTPS
+        value: true
+      - key: QG_SECRET_KEY
+        generateValue: true
+      - key: QG_DATABASE_URL
+        fromDatabase:
+          name: quantguard-postgres
+          property: connectionString
+      - key: QG_CORS_ORIGINS
+        sync: false
+      - key: QG_REPORT_STORAGE_DIR
+        value: generated_reports

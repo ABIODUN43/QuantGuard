@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.production.example
+backend/.env
+backend/.venv/
+backend/.pytest_cache/
+backend/*.egg-info/
+backend/__pycache__/
+backend/**/*.pyc
+backend/quantguard_dev.db
+backend/ci_quantguard.db
+backend/generated_reports/
+.DS_Store

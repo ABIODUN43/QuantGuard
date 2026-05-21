@@ -1,0 +1,24 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      QG_DATABASE_URL: postgresql+psycopg://quantguard:quantguard@postgres:5432/quantguard
+      QG_SECRET_KEY: change-this-in-production
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: quantguard
+      POSTGRES_PASSWORD: quantguard
+      POSTGRES_DB: quantguard
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

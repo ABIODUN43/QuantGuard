@@ -1,0 +1,13 @@
+.git
+.github
+node_modules
+dist
+*.log
+qg-vite.log
+frontend-*.log
+backend/.venv
+backend/__pycache__
+backend/.pytest_cache
+backend/quantguard_dev.db
+backend/generated_reports
+backend/**/*.pyc
