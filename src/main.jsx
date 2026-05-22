@@ -22,6 +22,7 @@ import {
   Lock,
   LogOut,
   Mail,
+  Menu,
   Play,
   Search,
   Settings,
@@ -32,6 +33,7 @@ import {
   Upload,
   Users,
   Wallet,
+  X,
   Zap
 } from "lucide-react";
 import {
@@ -319,22 +321,52 @@ function Onboarding({ onDone, logout }) {
 
 function Shell({ route, go, logout, business }) {
   const Page = pages[route] || Dashboard;
+  const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  React.useEffect(() => {
+    document.body.classList.toggle("mobile-menu-open", isMobileMenuOpen);
+    return () => document.body.classList.remove("mobile-menu-open");
+  }, [isMobileMenuOpen]);
+  const navigate = (next) => {
+    setMobileMenuOpen(false);
+    go(next);
+  };
+  const handleLogout = () => {
+    setMobileMenuOpen(false);
+    logout();
+  };
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
+    <div className={`app-shell ${isMobileMenuOpen ? "drawer-open" : ""}`}>
+      <MobileHeader business={business} isOpen={isMobileMenuOpen} onToggle={() => setMobileMenuOpen((open) => !open)} />
+      <button className="mobile-drawer-backdrop" aria-label="Close navigation menu" onClick={() => setMobileMenuOpen(false)} />
+      <aside className={`sidebar mobile-drawer ${isMobileMenuOpen ? "mobile-open" : ""}`}>
         <Logo />
         <nav className="side-nav">
-          {nav.map(([id, Icon, label]) => <button key={id} className={`nav-item ${route === id ? "active" : ""}`} onClick={() => go(id)}><Icon size={20} />{label}</button>)}
+          {nav.map(([id, Icon, label]) => <button key={id} className={`nav-item ${route === id ? "active" : ""}`} onClick={() => navigate(id)}><Icon size={20} />{label}</button>)}
         </nav>
         <div className="side-spacer" />
-        <div className="side-card"><small>Your Business</small><b><Building2 size={16} /> {business.business_name}</b><small>{business.business_type}</small><br /><small>{business.city}, {business.country}</small><button className="btn btn-light" onClick={() => go("settings")}>View Business Profile <ArrowRight size={16} /></button></div>
-        <button className="nav-item logout-btn" onClick={logout}><LogOut size={20} /> Logout</button>
+        <div className="side-card"><small>Your Business</small><b><Building2 size={16} /> {business.business_name}</b><small>{business.business_type}</small><br /><small>{business.city}, {business.country}</small><button className="btn btn-light" onClick={() => navigate("settings")}>View Business Profile <ArrowRight size={16} /></button></div>
+        <button className="nav-item logout-btn" onClick={handleLogout}><LogOut size={20} /> Logout</button>
       </aside>
       <main className="app-main">
         <Topbar business={business} logout={logout} />
         <div className="page"><Page go={go} business={business} logout={logout} /></div>
       </main>
     </div>
+  );
+}
+
+function MobileHeader({ business, isOpen, onToggle }) {
+  return (
+    <header className="mobile-app-header">
+      <button className="mobile-icon-btn" aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"} onClick={onToggle}>
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+      <Logo />
+      <div className="mobile-header-actions">
+        <button className="mobile-icon-btn" aria-label="Search"><Search size={22} /></button>
+        <div className="mobile-avatar">{business.business_name.slice(0, 2).toUpperCase()}</div>
+      </div>
+    </header>
   );
 }
 
